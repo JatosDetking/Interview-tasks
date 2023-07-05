@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpStatus, Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { AuthenticationService } from 'src/authentication/authentication.service';
 import { User } from './schemas/user.schemas';
@@ -14,11 +14,13 @@ export class UserController {
     }
 
     @Post('register')
-    async createUser(
-        @Body()
-        user
-    ): Promise<User> {
-        return this.userService.create(user)
+    async createUser(@Body() user): Promise<User> {
+      const existingUser = await this.userService.findByUsername(user.username);
+      if (existingUser) {
+        throw new HttpException('User with the same username already exists', HttpStatus.CONFLICT);
+      }
+  
+      return this.userService.create(user);
     }
     @Post('login')
     async login(

@@ -13,7 +13,7 @@ export class GetToken implements NestMiddleware {
 
             const bearer = bearerHeader.split(' ');
             const bearerToken = bearer[1];
-            req.body.token = bearerToken;
+            req['token'] = bearerToken;
         }
         next();
     }
@@ -24,14 +24,14 @@ export class VerifyToken implements NestMiddleware {
         private authenticationService: AuthenticationService
     ) { }
     async use(req: Request, res: Response, next: NextFunction) {
-        const authentication = await this.authenticationService.findByToken(req.body.token);
+        const authentication = await this.authenticationService.findByToken(req['token']);
+        req['authentication'] = authentication
 
         if (!authentication) {
             return res.status(HttpStatus.UNAUTHORIZED).json('unauthorization');
         }
-        const date = new Date(authentication.createdAt);
+        const date = new Date(authentication.expiryDate);
         const newDate = new Date(Date.now());
-
         if (newDate.getTime() > date.getTime()) {
             return res.status(HttpStatus.UNAUTHORIZED).json('unauthorization');
         } else {
@@ -45,8 +45,7 @@ export class GetUserId implements NestMiddleware {
         private authenticationService: AuthenticationService
     ) { }
     async use(req: Request, res: Response, next: NextFunction) {
-        const authentication = await this.authenticationService.findByToken(req.body.token);
-        req.body.userId = authentication.userId;
+        req.body.userId = req['authentication'].userId;
         next();
     }
 }

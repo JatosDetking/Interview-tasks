@@ -11,11 +11,4 @@ import { UserService } from './user.service';
     controllers: [UserController],
     providers: [UserService],
 })
-export class UserModule implements NestModule {
-    configure(consumer: MiddlewareConsumer) {
-        consumer
-            .apply(GetToken,VerifyToken,GetUserId)
-            .exclude('users/login','users/register')
-            .forRoutes('*');
-    }
-}
+export class UserModule{}

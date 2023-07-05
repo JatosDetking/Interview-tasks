@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
@@ -7,6 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ServiceModule } from './service/service.module';
 import { EventModule } from './event/event.module';
 import { AuthenticationModule } from './authentication/authentication.module';
+import { GetToken, GetUserId, VerifyToken } from './authentication/authentication.middleware';
 
 @Module({
   imports: [
@@ -22,4 +23,11 @@ import { AuthenticationModule } from './authentication/authentication.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements NestModule  {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+        .apply(GetToken,VerifyToken,GetUserId)
+        .exclude('users/login','users/register')
+        .forRoutes('*');
+}
+}
