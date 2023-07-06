@@ -9,18 +9,25 @@ export class EventService {
         private eventModel: mongoose.Model<Event>,
     ) { }
 
-    async findAll(): Promise<Event[]> {
-        const event = await this.eventModel.find();
-        return event;
+    async findAll(user: any): Promise<Event[]> {
+        let events = [];
+        if (user.role === 'user') {
+            events = await this.eventModel.find({ userId: user.id });
+        } else if (user.role === 'admin') {
+            events = await this.eventModel.find();
+        }
+        return events;
     }
     async create(event: Event): Promise<Event> {
         const res = await this.eventModel.create(event);
         return res;
     }
-    async updateById(id: string, event: Event): Promise<Event> {
-        return await this.eventModel.findByIdAndUpdate(id, event, {
-            new: true,
-            runValidators: true
-        })
+    async updateById(id: string, status: string): Promise<Event> {
+        return await this.eventModel.findOneAndUpdate(
+            { _id: id },
+            { status: status },
+            { new: true, runValidators: true }
+        ).exec();
     }
+    
 }

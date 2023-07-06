@@ -14,7 +14,7 @@ export class ServiceService {
         const service = await this.serviceModel.find();
         return service;
       }
-      async create(service:Service): Promise<Service>{
+      async create(service: Service): Promise<Service> {
         const res = await this.serviceModel.create(service);
         return res;
       }

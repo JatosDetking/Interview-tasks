@@ -12,7 +12,7 @@ export class UserService {
 
   async findAll(): Promise<User[]> {
     const users = await this.userModel.find();
-    return users;
+    return users; 
   }
   async create(user: User): Promise<User> {
     const res = await this.userModel.create(user);
@@ -20,6 +20,9 @@ export class UserService {
   }
   async findByUsername(username: string): Promise<any> {
     return this.userModel.findOne({ username }).exec();
+  }
+  async findById(userId: string): Promise<any> {
+    return this.userModel.findById(userId);
   }
   
 }

@@ -16,9 +16,9 @@ export class AuthenticationService {
         const token = jwt.sign({ username: user.username, password: user.password, role: user.role }, 'secretkey');
         const date = new Date(Date.now() + 259200000);
         const authentication = { userId: user.id, token: token, expiryDate: date };
-    
+
         const existingAuthentication = await this.authenticationModel.findOne({ userId: user.id });
-    
+
         if (existingAuthentication) {
             existingAuthentication.token = token;
             existingAuthentication.expiryDate = date;
@@ -29,10 +29,8 @@ export class AuthenticationService {
             return res.token;
         }
     }
-    
-        
-    
+
     async findByToken(token: string): Promise<any> {
-        return this.authenticationModel.findOne({ token }).exec();
-      }
+        return this.authenticationModel.findOne({ token: token }).exec();
+    }
 }

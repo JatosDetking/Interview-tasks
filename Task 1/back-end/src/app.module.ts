@@ -7,8 +7,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ServiceModule } from './service/service.module';
 import { EventModule } from './event/event.module';
 import { AuthenticationModule } from './authentication/authentication.module';
-import { GetToken, GetUserId, VerifyToken } from './authentication/authentication.middleware';
-
+import { GetToken, VerifyToken } from './authentication/authentication.middleware';
+import { GetUser } from './user/user.middleware';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -26,7 +26,7 @@ import { GetToken, GetUserId, VerifyToken } from './authentication/authenticatio
 export class AppModule implements NestModule  {
   configure(consumer: MiddlewareConsumer) {
     consumer
-        .apply(GetToken,VerifyToken,GetUserId)
+        .apply(GetToken,VerifyToken,GetUser)
         .exclude('users/login','users/register')
         .forRoutes('*');
 }

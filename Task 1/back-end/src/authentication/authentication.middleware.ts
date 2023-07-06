@@ -39,14 +39,5 @@ export class VerifyToken implements NestMiddleware {
         }
     }
 }
-@Injectable()
-export class GetUserId implements NestMiddleware {
-    constructor(
-        private authenticationService: AuthenticationService
-    ) { }
-    async use(req: Request, res: Response, next: NextFunction) {
-        req.body.userId = req['authentication'].userId;
-        next();
-    }
-}
+
 

@@ -19,7 +19,6 @@ export class UserController {
       if (existingUser) {
         throw new HttpException('User with the same username already exists', HttpStatus.CONFLICT);
       }
-  
       return this.userService.create(user);
     }
     @Post('login')
