@@ -1,0 +1,23 @@
+.start-container {
+    margin-left: 0;
+    z-index: 1;
+    margin-right: auto;
+  }
+  
+  .center-container {
+    position: absolute;
+    left: 0;
+    text-align: center;
+    z-index: 0;
+    width: 100%;
+  }
+  
+  .end-container {
+    margin-left: auto;
+    margin-right: 0;
+    z-index: 1;
+  }
+  .pretium-logo{
+    cursor: pointer;
+    padding-top: 15px;
+  }

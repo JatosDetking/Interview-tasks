@@ -1,0 +1,41 @@
+<div class="info-container">
+    <mat-card class="info-card">
+        <mat-card-header>
+            <mat-card-title>Service Information</mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <mat-card-content style="margin-top: 16px;">
+            <div>
+                <div class="info-field">
+                    <mat-card-subtitle>Name</mat-card-subtitle>
+                    <p>{{name}}</p>
+                </div>
+                <div class="info-field">
+                    <mat-card-subtitle>Image</mat-card-subtitle>
+                    <img width="200" height="150" src='{{image}}' alt="Image not found">
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+        </mat-card-content>
+        <div>
+            <div class="info-field">
+                <mat-card-subtitle>StartDate</mat-card-subtitle>
+                <p>{{startDate}}</p>
+            </div>
+            <div class="info-field">
+                <mat-card-subtitle>EndDate</mat-card-subtitle>
+                <p>{{endDate}}</p>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div>
+            <div class="info-field">
+                <mat-card-subtitle>CreatedAt</mat-card-subtitle>
+                <p>{{createdAt}}</p>
+            </div>
+            <div class="info-field">
+                <mat-card-subtitle>UpdatedAt</mat-card-subtitle>
+                <p>{{updatedAt}}</p>
+            </div>
+        </div>
+    </mat-card>

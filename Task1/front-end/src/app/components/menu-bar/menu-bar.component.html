@@ -1,0 +1,14 @@
+<mat-toolbar class="app-menu-bar" color="primary">
+    <div class="start-container">
+        <button mat-flat-button *ngIf="this.userService.loggedId()" color="primary" (click)="goToServicesPage()">Services</button>
+        <button mat-flat-button *ngIf="this.userService.loggedId()" color="primary" (click)="goToEventsPage()">Events</button>
+    </div>
+    <div class="center-container">
+        <h1 class="pretium-logo">Task1</h1>
+    </div>
+    <div class="end-container">
+        <button mat-flat-button *ngIf="!this.userService.loggedId()" color="primary" (click)="goToLoginPage()">Login</button>
+        <button mat-flat-button *ngIf="!this.userService.loggedId()" color="primary" (click)="goToRegisterPage()">Register</button>
+        <button mat-icon-button *ngIf="this.userService.loggedId()" (click)="logOut()"><mat-icon>logout</mat-icon></button>
+    </div>
+</mat-toolbar>

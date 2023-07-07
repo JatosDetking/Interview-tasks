@@ -1,0 +1,34 @@
+<form class="register-form">
+  <h1 class="heading">Login to your profile.</h1>
+  <mat-form-field class="register-full-width" appearance="fill">
+    <mat-label>Username</mat-label>
+    <input type="text" matInput [formControl]="usernameControl" placeholder="Username...">
+    <mat-error
+      *ngIf="(usernameControl.hasError('minlength')||usernameControl.hasError('maxlength')) && !usernameControl.hasError('required')">
+      Your username should be no less than 4 and no more than 20 symbols long!
+    </mat-error>
+    <mat-error *ngIf="usernameControl.hasError('required')">
+      Username is <strong>required</strong>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="register-full-width" appearance="fill">
+    <mat-label>Password</mat-label>
+    <input type="password" matInput [formControl]="passwordControl" placeholder="Password...">
+    <mat-error
+      *ngIf="(passwordControl.hasError('minlength')||passwordControl.hasError('maxlength')) && !passwordControl.hasError('required')">
+      Your password should be no less than 4 and no more than 20 symbols long!
+    </mat-error>
+    <mat-error *ngIf="passwordControl.hasError('required')">
+      Password is <strong>required</strong>
+    </mat-error>
+    <mat-error
+      *ngIf="passwordControl.hasError('onlyWordChars')&&!(passwordControl.hasError('minlength')||passwordControl.hasError('maxlength'))">
+    </mat-error>
+  </mat-form-field>
+
+  <button class="register-btn" mat-raised-button color="primary" (click)="login()" [disabled]="
+      usernameControl.invalid||
+      passwordControl.invalid
+      ">Login</button>
+      <p *ngIf="loginServerRegistrationMessage" class="server-success">{{loginServerRegistrationMessage}}</p>
+</form>

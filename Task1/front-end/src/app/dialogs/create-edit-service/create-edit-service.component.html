@@ -1,0 +1,63 @@
+<div style="position: relative; width: 100%; height: 100%;">
+    <h1 mat-dialog-title *ngIf="mode=='add'">Add Service</h1>
+    <h1 mat-dialog-title *ngIf="mode=='edit'">Edit Service</h1>
+    <div mat-dialog-content>
+        <div class="input-conteiner">
+            <div mat-dialog-content>
+                <mat-form-field class="register-full-width" appearance="fill">
+                    <mat-label>Name</mat-label>
+                    <input matInput [formControl]="name">
+                    <mat-error class="register-full-width" *ngIf="name.invalid && (name.dirty || name.touched)">
+                        <div *ngIf="name.errors?.['required']">Please enter a name.</div>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div mat-dialog-content>
+                <mat-form-field class="register-full-width" appearance="fill">
+                    <mat-label>Description</mat-label>
+                    <textarea matInput placeholder="Description..." [formControl]="description"></textarea>
+                    <mat-error *ngIf="description.invalid && (description.dirty || description.touched)">
+                        <div *ngIf="description.errors?.['required']">Please enter a Description.</div>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div mat-dialog-content>
+                <mat-form-field class="register-full-width" appearance="fill">
+                    <mat-label>ImageURL</mat-label>
+                    <input matInput [formControl]="image">
+                    <mat-error class="register-full-width" *ngIf="image.invalid && (image.dirty || image.touched)">
+                        <div *ngIf="image.errors?.['required']">Please enter a ImageURL.</div>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div mat-dialog-content>
+                <mat-form-field class="register-full-width" appearance="fill">
+                    <mat-label>Start date</mat-label>
+                    <input type="datetime-local" matInput [formControl]="startDate">
+                    <mat-error class="register-full-width"
+                        *ngIf="startDate.invalid && (startDate.dirty || startDate.touched)">
+                        <div *ngIf="startDate.errors?.['required']">Please enter Start date.</div>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div mat-dialog-content>
+                <mat-form-field class="register-full-width" appearance="fill">
+                    <mat-label>End date</mat-label>
+                    <input type="datetime-local" matInput [formControl]="endDate">
+                    <mat-error class="register-full-width"
+                        *ngIf="endDate.invalid && (endDate.dirty || endDate.touched)">
+                        <div *ngIf="endDate.errors?.['required']">Please enter End date.</div>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="button-container" style="display: flex; justify-content: center; text-align: center;">
+                <button mat-raised-button color="primary"
+                    [disabled]="name.invalid ||  description.invalid || image.invalid || startDate.invalid|| endDate.invalid"
+                    *ngIf="mode=='add'" (click)="add()">Add</button>
+                <button mat-raised-button color="primary"
+                    [disabled]="name.invalid ||  description.invalid || image.invalid || startDate.invalid|| endDate.invalid"
+                    *ngIf="mode=='edit'"(click)="edit()">Edit</button>
+            </div>
+        </div>
+    </div>
+</div>
