@@ -23,7 +23,7 @@ export class ServiceController {
                 if (!myEvent.some(myEvent => myEvent.serviceId == service._id)) {
                     const date = new Date(service.endDate);
                     if (newDate.getTime() < date.getTime()) {
-                        oderService.push(service); 
+                        oderService.push(service);
                     }
                 }
             });
@@ -38,8 +38,8 @@ export class ServiceController {
         @Body() service: Service,
     ): Promise<Response> {
         if (req['user'].role == 'admin') {
-            service.startDate = new Date(service.startDate);
-            service.endDate = new Date(service.endDate);
+            service.startDate = service.startDate;
+            service.endDate = service.endDate;
             this.serviceService.create(service);
             return res.status(HttpStatus.CREATED).json({ status: 'Ready' });
         } else {
@@ -57,8 +57,8 @@ export class ServiceController {
         service,
     ): Promise<Response> {
         if (req['user'].role == 'admin') {
-            service.startDate = new Date(service.startDate);
-            service.endDate = new Date(service.endDate);
+            service.startDate = service.startDate;
+            service.endDate = service.endDate;
             this.serviceService.updateById(id, service);
             return res.status(HttpStatus.OK).json({ status: 'Ready' });
         } else {
